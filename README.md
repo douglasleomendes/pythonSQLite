@@ -12,7 +12,7 @@ Funcionalidades :
     
  Andamento do projeto :
  
-    - Consultar o catalogo - **Implementado**
+    - Consultar o catalogo - Implementado
     - Adicionar filmes - Implementado
     - Atualizar filmes - Não implementado
     - Deletar filmes- Não implementado
