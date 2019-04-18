@@ -88,7 +88,7 @@ def main():
                 filme_id = cria_filme(conn, filme)
                 print (filme_id)
             else:
-                print("See Ya!")
+                print("See Ya!!")
 
 
 if __name__ =='__main__':
