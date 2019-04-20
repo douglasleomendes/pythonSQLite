@@ -36,6 +36,21 @@ def cria_filme(conn,filme):
     cur.execute(sql, filme)
     return cur.lastrowid
 
+def atualiza_filmes(conn,filme):
+    """
+    atualiza nome, data de lançamento e nota do filme
+    :param conn:
+    :param filme:
+    :return filme id:
+    """
+    sql = '''UPDATE filmes
+             SET nome = ?,
+                 data_lancamento = ?,
+                 nota= ?
+             where id= ?'''
+    cur = conn.cursor()
+    cur.execute(sql,filme)
+
 def seleciona_filmes(conn):
     """
     Busca todas as linhas na tabela de filmes
@@ -76,7 +91,7 @@ def main():
         opcao = ""
         while(opcao != 0):
             print("++++++++++++++++MENU++++++++++++++++")
-            opcao = int(input("1-Mostrar catálogo\n2-Adicionar filme\n0-Sair\nDigite o codigo da opção desejada:"))
+            opcao = int(input("1-Mostrar catálogo\n2-Adicionar filme\n3-Atualizar filme\n0-Sair\nDigite o codigo da opção desejada:"))
             if opcao == 1:
                 seleciona_filmes(conn)
             elif opcao == 2:
@@ -87,6 +102,13 @@ def main():
                 filme = (nome, data_lancamento, nota)
                 filme_id = cria_filme(conn, filme)
                 print (filme_id)
+            elif opcao ==3:
+                #atualiza filme
+                filme_id = int(input("Digite o id do filme que deseja atualizar:\n"))
+                nome = input("Digite o nome do filme:\n")
+                data_lancamento = input("Digite a data do filme(yyyy-mm-dd):\n")
+                nota = input("Digite a nota do filme(0-10):\n")
+                atualiza_filmes(conn,(nome,data_lancamento,nota,filme_id))                
             else:
                 print("See Ya!!")
 
