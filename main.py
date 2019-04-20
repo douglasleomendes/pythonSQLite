@@ -51,6 +51,26 @@ def atualiza_filmes(conn,filme):
     cur = conn.cursor()
     cur.execute(sql,filme)
 
+def deleta_filme(conn, id):
+    """
+    Deleta o filme por id
+    :param conn: Conexão na base de dados
+    :param id:id do filme
+    """
+    sql = 'DELETE FROM filmes WHERE id=?'
+    cur = conn.cursor()
+    cur.execute(sql,(id,))
+
+def deleta_todos_filmes(conn):
+    """
+    Deleta todas as linhas na tabela de filmes
+    :param conn: Conexão na base de dados
+    :return:
+    """
+    sql = 'DELETE FROM filmes'
+    cur = conn.cursor()
+    cur.execute(sql)
+
 def seleciona_filmes(conn):
     """
     Busca todas as linhas na tabela de filmes
@@ -91,7 +111,7 @@ def main():
         opcao = ""
         while(opcao != 0):
             print("++++++++++++++++MENU++++++++++++++++")
-            opcao = int(input("1-Mostrar catálogo\n2-Adicionar filme\n3-Atualizar filme\n0-Sair\nDigite o codigo da opção desejada:"))
+            opcao = int(input("1-Mostrar catálogo\n2-Adicionar filme\n3-Atualizar filme\n4-Deletar filmes\n0-Sair\nDigite o codigo da opção desejada:"))
             if opcao == 1:
                 seleciona_filmes(conn)
             elif opcao == 2:
@@ -108,7 +128,16 @@ def main():
                 nome = input("Digite o nome do filme:\n")
                 data_lancamento = input("Digite a data do filme(yyyy-mm-dd):\n")
                 nota = input("Digite a nota do filme(0-10):\n")
-                atualiza_filmes(conn,(nome,data_lancamento,nota,filme_id))                
+                atualiza_filmes(conn,(nome,data_lancamento,nota,filme_id))
+            elif opcao == 4:
+                opcao = int(input("1-Deletar filme por ID\n2-Deletar todo o catálogo\n0-Sair\nDigite o codigo da opção desejada:")) 
+                if opcao == 1:
+                    filme_id = int(input("Digite o id do filme que deseja deletar: "))
+                    deleta_filme(conn, filme_id)
+                elif opcao==2:
+                    deleta_todos_filmes(conn)
+                else:
+                    print("See Ya!")
             else:
                 print("See Ya!!")
 
